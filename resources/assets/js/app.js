@@ -11,8 +11,11 @@ window.Vue = require('vue');
 
 import VueRouter from 'vue-router'
 import router from './router'
+import http from './util/http'
 
 Vue.use(VueRouter)
+
+Vue.prototype.$http = http
 
 
 const app = new Vue({

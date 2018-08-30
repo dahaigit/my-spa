@@ -16,7 +16,9 @@
 <script>
     export default {
         mounted() {
-            console.log('Component mounted.')
+            this.$http.get('api/posts').then(function(response){
+
+            })
         }
     }
 </script>
