@@ -39,9 +39,9 @@ class PostController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+
     }
 
     /**
@@ -63,7 +63,13 @@ class PostController extends ApiController
      */
     public function show($id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $data = [
+            'post_id' => $post->id,
+            'title' => $post->title,
+            'body' => $post->body,
+        ];
+        return $this->response('ok', $data);
     }
 
     /**

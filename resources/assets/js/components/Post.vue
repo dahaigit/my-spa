@@ -3,9 +3,9 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card card-default">
-                    <div class="card-header">article lists</div>
-                    <div class="card-body" v-for="post in posts">
-                        <router-link :to="{ name: 'posts', params: { id: post.post_id }}">{{post.title}}</router-link>
+                    <div class="card-header">{{post.title}}</div>
+                    <div class="card-body">
+                        {{post.body}}
                     </div>
                 </div>
             </div>
@@ -17,13 +17,13 @@
     export default {
         data(){
             return {
-                posts: []
+                post: {}
             }
         },
         mounted() {
             let that = this
-            this.$http.get('api/posts').then(function(response){
-                that.posts = response.data.meta.rows
+            this.$http.get('api/posts/' + this.$route.params.id).then(function(response) {
+                that.post = response.data.meta
             })
         }
     }
