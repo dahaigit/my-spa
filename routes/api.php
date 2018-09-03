@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Route as FacadesRouter;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,5 +17,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
 Route::resource('posts', 'PostController');
+// 用户注册
+Route::post('/register', 'RegisterController@register');
+
+

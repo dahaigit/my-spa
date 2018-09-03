@@ -12,11 +12,12 @@ window.Vue = require('vue');
 import VueRouter from 'vue-router'
 import router from './router'
 import http from './util/http'
+import App from './components/App'
 
 Vue.use(VueRouter)
 
 Vue.prototype.$http = http
-
+Vue.component('app', App)
 
 const app = new Vue({
     el: '#app',
