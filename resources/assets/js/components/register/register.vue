@@ -8,35 +8,43 @@
                     <div class="card-body">
                         <form aria-label="注册" @submit.prevent="register">
                             <div class="form-group row">
-                                <label for="username" class="col-md-4 col-form-label text-md-right">名称</label>
-
+                                <label class="col-md-4 col-form-label text-md-right">名称</label>
                                 <div class="col-md-6">
-                                    <input id="username" v-model="username" type="text" class="form-control" name="username" required autofocus>
+                                    <input v-model="username"
+                                           v-validate="{ required: true}"
+                                           type="text" class="form-control"
+                                           name="username">
+                                    <span v-show="errors.has('username')">{{ errors.first('username') }}</span>
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label for="email"  class="col-md-4 col-form-label text-md-right">邮箱</label>
-
+                                <label class="col-md-4 col-form-label text-md-right">邮箱</label>
                                 <div class="col-md-6">
-                                    <input id="email" v-model="email" type="email" class="form-control" name="email"  required>
-
+                                    <input v-validate="{ required: true, email: true}"
+                                           v-model="email"
+                                           type="email" class="form-control" name="email" >
+                                    <span v-show="errors.has('email')">{{ errors.first('email') }}</span>
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label for="password" class="col-md-4 col-form-label text-md-right">密码</label>
-
+                                <label class="col-md-4 col-form-label text-md-right">密码</label>
                                 <div class="col-md-6">
-                                    <input id="password" v-model="password" type="password" class="form-control" name="password" required>
+                                    <input v-model="password"
+                                           v-validate="{ required: true, min: 6 }"
+                                           type="password" class="form-control" name="password" >
+                                    <span v-show="errors.has('password')">{{ errors.first('password') }}</span>
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label for="password-confirm" class="col-md-4 col-form-label text-md-right">再次输入密码</label>
-
+                                <label class="col-md-4 col-form-label text-md-right">再次输入密码</label>
                                 <div class="col-md-6">
-                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                                    <input
+                                        v-validate="{ required: true, min: 6 , confirmed: 'password' }"
+                                        type="password" class="form-control" name="password_confirmation">
+                                    <span v-show="errors.has('password_confirmation')">{{ errors.first('password_confirmation') }}</span>
                                 </div>
                             </div>
 
@@ -56,24 +64,27 @@
 </template>
 <script>
     export default {
+        data(){
+            return {
+                username: '',
+                email: '',
+                password: '',
+            }
+        },
         methods:{
-            data(){
-                return {
-                    username: '',
-                    email: '',
-                    password: '',
-                }
-            },
             register:function(){
-                let formData = {
-                    username : this.username,
-                    email : this.email,
-                    password : this.password,
-                }
-                let that = this
-                this.$http.post('/api/register', formData).then(function(response){
-                    that.$router.push({name:"registerConfirm"})
-
+                this.$validator.validateAll().then(function() {
+                    let formData = {
+                        username : this.username,
+                        email : this.email,
+                        password : this.password,
+                    }
+                    let that = this
+                    this.$http.post('/api/register', formData).then(function(response){
+                        that.$router.push({name:"registerConfirm"})
+                    });
+                }).catch(function() {
+                    //alert('请填写完整信息');
                 });
             }
         }
