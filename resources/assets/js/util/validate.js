@@ -1,13 +1,9 @@
 import Vue from 'vue'
 import VeeValidate, {Validator} from 'vee-validate'
-import zh from 'vee-validate/dist/locale/zh_CN';//引入中文文件
+import zh from '../util/vee_locate/zh_CN.js';//引入中文文件
 
 // 配置中文
 Validator.localize('zh_CN', zh);
-
-const config = {
-    locale: 'zh_CN',
-};
 
 Vue.use(VeeValidate, {
     locale: zh,
@@ -21,6 +17,7 @@ Vue.use(VeeValidate, {
                 email:'邮箱',
                 username: '账号',
                 password:'密码',
+                phone:'手机号码',
                 password_confirmation:'验证密码',
             }
         }
@@ -29,11 +26,12 @@ Vue.use(VeeValidate, {
 
 // 自定义validate
 
-// Validator.extend('phone', {
-//     messages: {
-//         zh_CN:field => field + '必须是11位手机号码',
-//     },
-//     validate: value => {
-//         return value.length == 11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/.test(value)
-//     }
-// });
+
+Validator.extend('phone', {
+    messages: {
+        zh_CN:field => field + '必须是11位手机号码',
+    },
+    validate: value => {
+        return value.length == 11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/.test(value)
+    }
+});

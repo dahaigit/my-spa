@@ -50681,10 +50681,10 @@ var render = function() {
                           value: {
                             required: true,
                             min: 6,
-                            confirmed: "password"
+                            confirmed: _vm.password
                           },
                           expression:
-                            "{ required: true, min: 6 , confirmed: 'password' }"
+                            "{ required: true, min: 6 , confirmed: password }"
                         }
                       ],
                       staticClass: "form-control",
@@ -51202,21 +51202,16 @@ if (false) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vee_validate__ = __webpack_require__(65);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vee_validate_dist_locale_zh_CN__ = __webpack_require__(66);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vee_validate_dist_locale_zh_CN___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vee_validate_dist_locale_zh_CN__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__util_vee_locate_zh_CN_js__ = __webpack_require__(72);
 
 
  //引入中文文件
 
 // 配置中文
-__WEBPACK_IMPORTED_MODULE_1_vee_validate__["a" /* Validator */].localize('zh_CN', __WEBPACK_IMPORTED_MODULE_2_vee_validate_dist_locale_zh_CN___default.a);
-
-var config = {
-    locale: 'zh_CN'
-};
+__WEBPACK_IMPORTED_MODULE_1_vee_validate__["a" /* Validator */].localize('zh_CN', __WEBPACK_IMPORTED_MODULE_2__util_vee_locate_zh_CN_js__["a" /* default */]);
 
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vee_validate__["b" /* default */], {
-    locale: __WEBPACK_IMPORTED_MODULE_2_vee_validate_dist_locale_zh_CN___default.a,
+    locale: __WEBPACK_IMPORTED_MODULE_2__util_vee_locate_zh_CN_js__["a" /* default */],
     dictionary: {
         zh_CN: {
             messages: {
@@ -51231,6 +51226,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vee_
                 email: '邮箱',
                 username: '账号',
                 password: '密码',
+                phone: '手机号码',
                 password_confirmation: '验证密码'
             }
         }
@@ -51239,14 +51235,17 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vee_
 
 // 自定义validate
 
-// Validator.extend('phone', {
-//     messages: {
-//         zh_CN:field => field + '必须是11位手机号码',
-//     },
-//     validate: value => {
-//         return value.length == 11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/.test(value)
-//     }
-// });
+
+__WEBPACK_IMPORTED_MODULE_1_vee_validate__["a" /* Validator */].extend('phone', {
+    messages: {
+        zh_CN: function zh_CN(field) {
+            return field + '必须是11位手机号码';
+        }
+    },
+    validate: function validate(value) {
+        return value.length == 11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/.test(value);
+    }
+});
 
 /***/ }),
 /* 65 */
@@ -59068,16 +59067,203 @@ var index_esm = {
 
 
 /***/ }),
-/* 66 */
-/***/ (function(module, exports, __webpack_require__) {
-
-!function(n,e){ true?module.exports=e():"function"==typeof define&&define.amd?define(e):(n.__vee_validate_locale__zh_CN=n.__vee_validate_locale__zh_CN||{},n.__vee_validate_locale__zh_CN.js=e())}(this,function(){"use strict";var n,e={name:"zh_CN",messages:{after:function(n,e){return n+"必须在"+e[0]+"之后"},alpha_dash:function(n){return n+"能够包含字母数字字符、破折号和下划线"},alpha_num:function(n){return n+"只能包含字母数字字符"},alpha_spaces:function(n){return n+"只能包含字母字符和空格"},alpha:function(n){return n+"只能包含字母字符"},before:function(n,e){return n+"必须在"+e[0]+"之前"},between:function(n,e){return n+"必须在"+e[0]+"与"+e[1]+"之间"},confirmed:function(n,e){return n+"不能和"+e[0]+"匹配"},date_between:function(n,e){return n+"必须在"+e[0]+"和"+e[1]+"之间"},date_format:function(n,e){return n+"必须符合"+e[0]+"格式"},decimal:function(n,e){void 0===e&&(e=[]);var t=e[0];return void 0===t&&(t="*"),n+"必须是数字，且能够保留"+("*"===t?"":t)+"位小数"},digits:function(n,e){return n+"必须是数字，且精确到"+e[0]+"位数"},dimensions:function(n,e){return n+"必须在"+e[0]+"像素与"+e[1]+"像素之间"},email:function(n){return n+"不是一个有效的邮箱"},ext:function(n){return n+"不是一个有效的文件"},image:function(n){return n+"不是一张有效的图片"},included:function(n){return n+"不是一个有效值"},ip:function(n){return n+"不是一个有效的地址"},max:function(n,e){return n+"不能超过"+e[0]+"个字符"},max_value:function(n,e){return n+"必须小于或等于"+e[0]},mimes:function(n){return n+"不是一个有效的文件类型"},min:function(n,e){return n+"必须至少有"+e[0]+"个字符"},min_value:function(n,e){return n+"必须大于或等于"+e[0]},excluded:function(n){return n+"不是一个有效值"},numeric:function(n){return n+"只能包含数字字符"},regex:function(n){return n+"格式无效"},required:function(n){return n+"是必须的"},size:function(n,e){var t,r,u,i=e[0];return n+"必须小于"+(t=i,r=1024,u=0==(t=Number(t)*r)?0:Math.floor(Math.log(t)/Math.log(r)),1*(t/Math.pow(r,u)).toFixed(2)+" "+["Byte","KB","MB","GB","TB","PB","EB","ZB","YB"][u])},url:function(n){return n+"不是一个有效的url"}},attributes:{}};return"undefined"!=typeof VeeValidate&&VeeValidate.Validator.localize(((n={})[e.name]=e,n)),e});
-
-/***/ }),
+/* 66 */,
 /* 67 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 68 */,
+/* 69 */,
+/* 70 */,
+/* 71 */,
+/* 72 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(73);
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+var messages = {
+    after: function after(field, _ref) {
+        var _ref2 = _slicedToArray(_ref, 1),
+            target = _ref2[0];
+
+        return field + '\u5FC5\u987B\u5728' + target + '\u4E4B\u540E';
+    },
+    alpha_dash: function alpha_dash(field) {
+        return field + '\u80FD\u591F\u5305\u542B\u5B57\u6BCD\u6570\u5B57\u5B57\u7B26\u3001\u7834\u6298\u53F7\u548C\u4E0B\u5212\u7EBF';
+    },
+    alpha_num: function alpha_num(field) {
+        return field + '\u53EA\u80FD\u5305\u542B\u5B57\u6BCD\u6570\u5B57\u5B57\u7B26';
+    },
+    alpha_spaces: function alpha_spaces(field) {
+        return field + '\u53EA\u80FD\u5305\u542B\u5B57\u6BCD\u5B57\u7B26\u548C\u7A7A\u683C';
+    },
+    alpha: function alpha(field) {
+        return field + '\u53EA\u80FD\u5305\u542B\u5B57\u6BCD\u5B57\u7B26';
+    },
+    before: function before(field, _ref3) {
+        var _ref4 = _slicedToArray(_ref3, 1),
+            target = _ref4[0];
+
+        return field + '\u5FC5\u987B\u5728' + target + '\u4E4B\u524D';
+    },
+    between: function between(field, _ref5) {
+        var _ref6 = _slicedToArray(_ref5, 2),
+            min = _ref6[0],
+            max = _ref6[1];
+
+        return field + '\u5FC5\u987B\u5728' + min + '\u4E0E' + max + '\u4E4B\u95F4';
+    },
+    confirmed: function confirmed(field, _ref7) {
+        var _ref8 = _slicedToArray(_ref7, 1),
+            confirmedField = _ref8[0];
+
+        return '\u4E24\u6B21\u8F93\u5165' + field + '\u4E0D\u4E00\u81F4';
+    },
+    date_between: function date_between(field, _ref9) {
+        var _ref10 = _slicedToArray(_ref9, 2),
+            min = _ref10[0],
+            max = _ref10[1];
+
+        return field + '\u5FC5\u987B\u5728' + min + '\u548C' + max + '\u4E4B\u95F4';
+    },
+    date_format: function date_format(field, _ref11) {
+        var _ref12 = _slicedToArray(_ref11, 1),
+            format = _ref12[0];
+
+        return field + '\u5FC5\u987B\u7B26\u5408' + format + '\u683C\u5F0F';
+    },
+    decimal: function decimal(field) {
+        var _ref13 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [],
+            _ref14 = _slicedToArray(_ref13, 1),
+            _ref14$ = _ref14[0],
+            decimals = _ref14$ === undefined ? '*' : _ref14$;
+
+        return field + '\u5FC5\u987B\u662F\u6570\u5B57\uFF0C\u4E14\u80FD\u591F\u4FDD\u7559' + (decimals === '*' ? '' : decimals) + '\u4F4D\u5C0F\u6570';
+    },
+    digits: function digits(field, _ref15) {
+        var _ref16 = _slicedToArray(_ref15, 1),
+            length = _ref16[0];
+
+        return field + '\u5FC5\u987B\u662F\u6570\u5B57\uFF0C\u4E14\u7CBE\u786E\u5230' + length + '\u4F4D\u6570';
+    },
+    dimensions: function dimensions(field, _ref17) {
+        var _ref18 = _slicedToArray(_ref17, 2),
+            width = _ref18[0],
+            height = _ref18[1];
+
+        return field + '\u5FC5\u987B\u5728' + width + '\u50CF\u7D20\u4E0E' + height + '\u50CF\u7D20\u4E4B\u95F4';
+    },
+    email: function email(field) {
+        return field + '\u4E0D\u662F\u4E00\u4E2A\u6709\u6548\u7684\u90AE\u7BB1';
+    },
+    ext: function ext(field) {
+        return field + '\u4E0D\u662F\u4E00\u4E2A\u6709\u6548\u7684\u6587\u4EF6';
+    },
+    image: function image(field) {
+        return field + '\u4E0D\u662F\u4E00\u5F20\u6709\u6548\u7684\u56FE\u7247';
+    },
+    included: function included(field) {
+        return field + '\u4E0D\u662F\u4E00\u4E2A\u6709\u6548\u503C';
+    },
+    ip: function ip(field) {
+        return field + '\u4E0D\u662F\u4E00\u4E2A\u6709\u6548\u7684\u5730\u5740';
+    },
+    max: function max(field, _ref19) {
+        var _ref20 = _slicedToArray(_ref19, 1),
+            length = _ref20[0];
+
+        return field + '\u4E0D\u80FD\u8D85\u8FC7' + length + '\u4E2A\u5B57\u7B26';
+    },
+    max_value: function max_value(field, _ref21) {
+        var _ref22 = _slicedToArray(_ref21, 1),
+            max = _ref22[0];
+
+        return field + '\u5FC5\u987B\u5C0F\u4E8E\u6216\u7B49\u4E8E' + max;
+    },
+    mimes: function mimes(field) {
+        return field + '\u4E0D\u662F\u4E00\u4E2A\u6709\u6548\u7684\u6587\u4EF6\u7C7B\u578B';
+    },
+    min: function min(field, _ref23) {
+        var _ref24 = _slicedToArray(_ref23, 1),
+            length = _ref24[0];
+
+        return field + '\u5FC5\u987B\u81F3\u5C11\u6709' + length + '\u4E2A\u5B57\u7B26';
+    },
+    min_value: function min_value(field, _ref25) {
+        var _ref26 = _slicedToArray(_ref25, 1),
+            min = _ref26[0];
+
+        return field + '\u5FC5\u987B\u5927\u4E8E\u6216\u7B49\u4E8E' + min;
+    },
+    excluded: function excluded(field) {
+        return field + '\u4E0D\u662F\u4E00\u4E2A\u6709\u6548\u503C';
+    },
+    numeric: function numeric(field) {
+        return field + '\u53EA\u80FD\u5305\u542B\u6570\u5B57\u5B57\u7B26';
+    },
+    regex: function regex(field) {
+        return field + '\u683C\u5F0F\u65E0\u6548';
+    },
+    required: function required(field) {
+        return field + '\u662F\u5FC5\u987B\u7684';
+    },
+    size: function size(field, _ref27) {
+        var _ref28 = _slicedToArray(_ref27, 1),
+            _size = _ref28[0];
+
+        return field + '\u5FC5\u987B\u5C0F\u4E8E' + Object(__WEBPACK_IMPORTED_MODULE_0__utils__["a" /* formatFileSize */])(_size);
+    },
+    url: function url(field) {
+        return field + '\u4E0D\u662F\u4E00\u4E2A\u6709\u6548\u7684url';
+    }
+};
+
+var locale = {
+    name: 'zh_CN',
+    messages: messages,
+    attributes: {}
+};
+
+if (Object(__WEBPACK_IMPORTED_MODULE_0__utils__["b" /* isDefinedGlobally */])()) {
+    VeeValidate.Validator.localize(_defineProperty({}, locale.name, locale));
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (locale);
+
+/***/ }),
+/* 73 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return formatFileSize; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return isDefinedGlobally; });
+/**
+ * Formates file size.
+ *
+ * @param {Number|String} size
+ */
+var formatFileSize = function formatFileSize(size) {
+  var units = ['Byte', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+  var threshold = 1024;
+  size = Number(size) * threshold;
+  var i = size === 0 ? 0 : Math.floor(Math.log(size) / Math.log(threshold));
+  return (size / Math.pow(threshold, i)).toFixed(2) * 1 + ' ' + units[i];
+};
+
+/**
+ * Checks if vee-validate is defined globally.
+ */
+var isDefinedGlobally = function isDefinedGlobally() {
+  return typeof VeeValidate !== 'undefined';
+};
 
 /***/ })
 /******/ ]);

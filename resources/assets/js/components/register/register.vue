@@ -42,7 +42,7 @@
                                 <label class="col-md-4 col-form-label text-md-right">再次输入密码</label>
                                 <div class="col-md-6">
                                     <input
-                                        v-validate="{ required: true, min: 6 , confirmed: 'password' }"
+                                        v-validate="{ required: true, min: 6 , confirmed: password }"
                                         type="password" class="form-control" name="password_confirmation">
                                     <span v-show="errors.has('password_confirmation')">{{ errors.first('password_confirmation') }}</span>
                                 </div>
