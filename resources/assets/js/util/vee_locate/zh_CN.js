@@ -8,7 +8,7 @@ const messages = {
     alpha: (field) => `${field}只能包含字母字符`,
     before: (field, [target]) => `${field}必须在${target}之前`,
     between: (field, [min, max]) => `${field}必须在${min}与${max}之间`,
-    confirmed: (field, [confirmedField]) => `两次输入${field}不一致`,
+    confirmed: (field, [confirmedField]) => `两次输入不一致`,
     date_between: (field, [min, max]) => `${field}必须在${min}和${max}之间`,
     date_format: (field, [format]) => `${field}必须符合${format}格式`,
     decimal: (field, [decimals = '*'] = []) => `${field}必须是数字，且能够保留${decimals === '*' ? '' : decimals}位小数`,

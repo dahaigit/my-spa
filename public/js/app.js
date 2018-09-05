@@ -27590,7 +27590,7 @@ if (inBrowser && window.Vue) {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(16);
-module.exports = __webpack_require__(67);
+module.exports = __webpack_require__(68);
 
 
 /***/ }),
@@ -50462,18 +50462,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         register: function register() {
-            this.$validator.validateAll().then(function () {
-                var formData = {
-                    username: this.username,
-                    email: this.email,
-                    password: this.password
-                };
-                var that = this;
-                this.$http.post('/api/register', formData).then(function (response) {
-                    that.$router.push({ name: "registerConfirm" });
-                });
-            }).catch(function () {
-                //alert('请填写完整信息');
+            var _this = this;
+
+            this.$validator.validateAll().then(function (result) {
+                if (result) {
+                    var formData = {
+                        username: _this.username,
+                        email: _this.email,
+                        password: _this.password
+                    };
+                    var that = _this;
+                    _this.$http.post('/api/register', formData).then(function (response) {
+                        that.$router.push({ name: "registerConfirm" });
+                    });
+                    return;
+                }
             });
         }
     }
@@ -51202,7 +51205,7 @@ if (false) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vee_validate__ = __webpack_require__(65);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__util_vee_locate_zh_CN_js__ = __webpack_require__(72);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__util_vee_locate_zh_CN_js__ = __webpack_require__(66);
 
 
  //引入中文文件
@@ -59067,22 +59070,11 @@ var index_esm = {
 
 
 /***/ }),
-/* 66 */,
-/* 67 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 68 */,
-/* 69 */,
-/* 70 */,
-/* 71 */,
-/* 72 */
+/* 66 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(73);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(67);
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -59125,7 +59117,7 @@ var messages = {
         var _ref8 = _slicedToArray(_ref7, 1),
             confirmedField = _ref8[0];
 
-        return '\u4E24\u6B21\u8F93\u5165' + field + '\u4E0D\u4E00\u81F4';
+        return '\u4E24\u6B21\u8F93\u5165\u4E0D\u4E00\u81F4';
     },
     date_between: function date_between(field, _ref9) {
         var _ref10 = _slicedToArray(_ref9, 2),
@@ -59239,7 +59231,7 @@ if (Object(__WEBPACK_IMPORTED_MODULE_0__utils__["b" /* isDefinedGlobally */])())
 /* harmony default export */ __webpack_exports__["a"] = (locale);
 
 /***/ }),
-/* 73 */
+/* 67 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -59264,6 +59256,12 @@ var formatFileSize = function formatFileSize(size) {
 var isDefinedGlobally = function isDefinedGlobally() {
   return typeof VeeValidate !== 'undefined';
 };
+
+/***/ }),
+/* 68 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use EcareYu\Services\Code;
 use EcareYu\Services\UtilService;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -53,7 +54,7 @@ class RegisterController extends ApiController
     {
         return Validator::make($data, [
             'username' => 'required|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6',
         ]);
     }
@@ -66,7 +67,20 @@ class RegisterController extends ApiController
      */
     public function register(Request $request)
     {
-        $this->validator($request->all())->validate();
+        $validator = \Validator::make($request->all(), [
+            "username" => "required|max:255",
+            'email' => 'required|unique:users',
+            'password' => 'required|min:6',
+        ], [
+            "username.required" => $this->ruleMsg(Code::E_USERNAME_REQUIRED),
+            'username.max' => $this->ruleMsg(Code::E_USERNAME_MAX),
+            "email.required" => $this->ruleMsg(Code::E_EMAIL_REQUIRED),
+            "email.unique" => $this->ruleMsg(Code::E_EMAIL_UNIQUE),
+            "password.required" => $this->ruleMsg(Code::E_PASSWORD_REQUIRED),
+            "password.min" => $this->ruleMsg(Code::E_PASSWORD_MIN),
+        ]);
+        $this->validatorErrors($validator);
+
         event(new Registered($user = $this->create($request->all())));
 
         return $this->response('register ok');

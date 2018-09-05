@@ -56,6 +56,7 @@ class UtilService
     public static function error($key, $values = [])
     {
         $msg = __(sprintf('errors.%s', $key));
+
         if (count($values) > 0) {
             foreach ($values as $key => $value) {
                 $msg = str_replace("#${key}#", $value, $msg);

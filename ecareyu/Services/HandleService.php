@@ -31,6 +31,7 @@ class HandleService
     {
         if (!$validator->errors()->isEmpty()) {
             foreach ($validator->errors()->messages() as $error) {
+
                 list($msg, $code) = explode('|', $error[0]);
                 throw new ApiException($msg, $code);
             }

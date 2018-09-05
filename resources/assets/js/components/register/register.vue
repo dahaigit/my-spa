@@ -72,19 +72,20 @@
             }
         },
         methods:{
-            register:function(){
-                this.$validator.validateAll().then(function() {
-                    let formData = {
-                        username : this.username,
-                        email : this.email,
-                        password : this.password,
+            register() {
+                this.$validator.validateAll().then((result) => {
+                    if (result) {
+                        let formData = {
+                            username : this.username,
+                            email : this.email,
+                            password : this.password,
+                        }
+                        let that = this
+                        this.$http.post('/api/register', formData).then(function(response){
+                            that.$router.push({name:"registerConfirm"})
+                        });
+                        return;
                     }
-                    let that = this
-                    this.$http.post('/api/register', formData).then(function(response){
-                        that.$router.push({name:"registerConfirm"})
-                    });
-                }).catch(function() {
-                    //alert('请填写完整信息');
                 });
             }
         }

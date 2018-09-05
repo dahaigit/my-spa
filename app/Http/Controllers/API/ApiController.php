@@ -4,6 +4,8 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use EcareYu\Services\UtilService as Util;
+use EcareYu\Services\HandleService as Handle;
+use Illuminate\Validation\Validator;
 use App\Http\Controllers\Controller;
 
 class ApiController extends Controller
