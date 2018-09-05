@@ -21,4 +21,7 @@ Route::resource('posts', 'PostController');
 // 用户注册
 Route::post('/register', 'RegisterController@register');
 
+// 用户登录
+Route::post('/login', 'LoginController@login');
+
 

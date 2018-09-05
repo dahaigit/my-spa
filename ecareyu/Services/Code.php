@@ -12,4 +12,7 @@ interface Code
     const E_PASSWORD_REQUIRED = 5;
     const E_PASSWORD_MIN = 6;
 
+    const E_AUTH_ERROR = 7;
+    const E_NOT_ACTIVE = 8;
+
 }

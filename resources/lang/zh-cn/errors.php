@@ -18,4 +18,7 @@ return [
     Code::E_EMAIL_UNIQUE => '邮箱已经被占用',
     Code::E_PASSWORD_REQUIRED => '密码不能为空',
     Code::E_PASSWORD_MIN => '密码最少%s位',
+
+    Code::E_AUTH_ERROR => '账号或密码不正确',
+    Code::E_NOT_ACTIVE => '该账号没有激活请前往激活',
 ];
