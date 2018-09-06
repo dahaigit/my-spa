@@ -50,12 +50,7 @@ class LoginController extends ApiController
     {
         $email = $request->email;
         $password = $request->password;
-        try {
-            $data = $this->proxy->login($email, $password);
-        } catch (\Exception $exception) {
-            throw $exception;
-        }
-
+        $data = $this->proxy->login($email, $password);
         return $this->response('login ok', $data);
     }
 }

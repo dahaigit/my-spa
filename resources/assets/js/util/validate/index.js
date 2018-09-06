@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VeeValidate, {Validator} from 'vee-validate'
-import zh from '../util/vee_locate/zh_CN.js';//引入中文文件
+import zh from './locate/zh_CN.js';//引入中文文件
 
 // 配置中文
 Validator.localize('zh_CN', zh);

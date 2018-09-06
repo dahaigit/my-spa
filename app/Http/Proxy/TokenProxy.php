@@ -28,7 +28,7 @@ class TokenProxy
         if (!auth()->attempt(['email' => $email,'password' => $password])) {
             UtilService::thrownErr(Code::E_AUTH_ERROR);
         }
-        if (!auth()->attempt(['email' => $email, 'password' => $password, 'is_active' => 1,])) {
+        if (!auth()->attempt(['email' => $email, 'password' => $password, 'is_active' => 1])) {
             UtilService::thrownErr(Code::E_NOT_ACTIVE);
         }
         $params = [
