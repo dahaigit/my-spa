@@ -15,8 +15,17 @@
                 </li>
             </ul>
             <ul class="navbar-nav my-2 my-lg-0">
-                <li class="nav-item">
+                <li class="nav-item" v-if="!user.authenticated">
+                    <router-link class="nav-link navbar-dark" to="/login">登陆</router-link>
+                </li>
+                <li class="nav-item" v-if="!user.authenticated">
                     <router-link class="nav-link navbar-dark" to="/register">注册</router-link>
+                </li>
+                <li class="nav-item" v-if="user.authenticated">
+                    <router-link class="nav-link navbar-dark" to="/profile">个人中心</router-link>
+                </li>
+                <li class="nav-item" v-if="user.authenticated">
+                    <a class="nav-link navbar-dark" href="#">退出</a>
                 </li>
             </ul>
         </div>
@@ -24,6 +33,13 @@
 </template>
 
 <script>
+    import {mapState} from 'vuex'
     export default {
+        computed:{
+            ...mapState({
+                user: state => state.auth
+            })
+
+        }
     }
 </script>

@@ -15,11 +15,9 @@ import http from './util/http'
 import App from './components/App'
 import './util/validate'
 import Vuex from 'vuex'
+import store from './store'
 
 Vue.use(Vuex)
-
-
-
 Vue.use(VueRouter)
 
 Vue.prototype.$http = http
@@ -27,5 +25,6 @@ Vue.component('app', App)
 
 const app = new Vue({
     el: '#app',
-    router
+    router,
+    store
 });
