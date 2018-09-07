@@ -1,7 +1,7 @@
 import store from "../index"
-import refreshToken from './refreshToken'
 export default {
     tokenKey: 'jwt_token',
+    refreshTokenKey: 'refresh_token',
     /**
      * 缓存access_token和refresh_token
      * @param data
@@ -9,16 +9,16 @@ export default {
     setAllToken(data)
     {
         this.setToken(data['access_token'], data['expires_in'])
-        refreshToken.setToken(data['refresh_token'])
+        store.set(this.refreshTokenKey, data['refresh_token'], 14400)
     },
     setToken(token, duration){
-        return store.set(this.tokenKey, token, duration)
+        store.set(this.tokenKey, token, duration)
     },
     getToken(){
         return store.get(this.tokenKey)
     },
     removeToken(){
-        refreshToken.removeToken()
-        return store.remove(this.tokenKey)
+        store.remove(this.refreshTokenKey)
+        store.remove(this.tokenKey)
     }
 }

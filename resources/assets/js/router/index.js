@@ -5,7 +5,7 @@ import jwt from '../util/storage/jwt'
 let routes = [
     {
         path: '/',
-        name: 'home',
+        name: '/',
         component: require('../components/pages/Home'),
         meta:{}
     },
@@ -59,7 +59,7 @@ router.beforeEach((to,from,next)=>{
         }
     } else {
         if (to.name == 'login' && isLogin) {
-            return next('home')
+            return next('/')
         }
     }
     return next()

@@ -538,28 +538,27 @@ var API = {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index__ = __webpack_require__(50);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__refreshToken__ = __webpack_require__(94);
-
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     tokenKey: 'jwt_token',
+    refreshTokenKey: 'refresh_token',
     /**
      * 缓存access_token和refresh_token
      * @param data
      */
     setAllToken: function setAllToken(data) {
         this.setToken(data['access_token'], data['expires_in']);
-        __WEBPACK_IMPORTED_MODULE_1__refreshToken__["a" /* default */].setToken(data['refresh_token']);
+        __WEBPACK_IMPORTED_MODULE_0__index__["a" /* default */].set(this.refreshTokenKey, data['refresh_token'], 14400);
     },
     setToken: function setToken(token, duration) {
-        return __WEBPACK_IMPORTED_MODULE_0__index__["a" /* default */].set(this.tokenKey, token, duration);
+        __WEBPACK_IMPORTED_MODULE_0__index__["a" /* default */].set(this.tokenKey, token, duration);
     },
     getToken: function getToken() {
         return __WEBPACK_IMPORTED_MODULE_0__index__["a" /* default */].get(this.tokenKey);
     },
     removeToken: function removeToken() {
-        __WEBPACK_IMPORTED_MODULE_1__refreshToken__["a" /* default */].removeToken();
-        return __WEBPACK_IMPORTED_MODULE_0__index__["a" /* default */].remove(this.tokenKey);
+        __WEBPACK_IMPORTED_MODULE_0__index__["a" /* default */].remove(this.refreshTokenKey);
+        __WEBPACK_IMPORTED_MODULE_0__index__["a" /* default */].remove(this.tokenKey);
     }
 });
 
@@ -51096,7 +51095,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 var routes = [{
     path: '/',
-    name: 'home',
+    name: '/',
     component: __webpack_require__(57),
     meta: {}
 }, {
@@ -51143,7 +51142,7 @@ router.beforeEach(function (to, from, next) {
         }
     } else {
         if (to.name == 'login' && isLogin) {
-            return next('home');
+            return next('/');
         }
     }
     return next();
@@ -61608,39 +61607,6 @@ var isDefinedGlobally = function isDefinedGlobally() {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 90 */,
-/* 91 */,
-/* 92 */,
-/* 93 */,
-/* 94 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index__ = __webpack_require__(50);
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-    tokenKey: 'refresh_token',
-    /**
-     * 设置刷新token单位秒
-     * @param token
-     * @param duration
-     * @returns {*}
-     */
-    setToken: function setToken(token) {
-        var duration = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 14400;
-
-        // 默认设置10天有效
-        return __WEBPACK_IMPORTED_MODULE_0__index__["a" /* default */].set(this.tokenKey, token, duration);
-    },
-    getToken: function getToken() {
-        return __WEBPACK_IMPORTED_MODULE_0__index__["a" /* default */].get(this.tokenKey);
-    },
-    removeToken: function removeToken() {
-        return __WEBPACK_IMPORTED_MODULE_0__index__["a" /* default */].remove(this.tokenKey);
-    }
-});
 
 /***/ })
 /******/ ]);
