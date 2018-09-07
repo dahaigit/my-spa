@@ -15,7 +15,7 @@ export default {
     },
     actions:{
         setAuthUser({commit,dispatch}){
-            axios.get(API.user_info).then(response =>{
+            return axios.get(API.user_info).then(response =>{
                 commit({
                     type: types.SET_AUTH_USER,
                     user: response.data

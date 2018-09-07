@@ -51035,7 +51035,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             var commit = _ref.commit,
                 dispatch = _ref.dispatch;
 
-            axios.get(__WEBPACK_IMPORTED_MODULE_1__api__["a" /* default */].user_info).then(function (response) {
+            return axios.get(__WEBPACK_IMPORTED_MODULE_1__api__["a" /* default */].user_info).then(function (response) {
                 commit({
                     type: __WEBPACK_IMPORTED_MODULE_0__mutation_type__["a" /* SET_AUTH_USER */],
                     user: response.data
@@ -51068,7 +51068,7 @@ var SET_AUTH_USER = 'SET_AUTH_USER'; // 获取用户信息并设置到store中
         loginRequest: function loginRequest(_ref, formData) {
             var dispatch = _ref.dispatch;
 
-            axios.post(__WEBPACK_IMPORTED_MODULE_1__api__["a" /* default */].login, formData).then(function (response) {
+            return axios.post(__WEBPACK_IMPORTED_MODULE_1__api__["a" /* default */].login, formData).then(function (response) {
                 __WEBPACK_IMPORTED_MODULE_0__util_storage_jwt__["a" /* default */].setToken(response.data.meta.access_token);
                 dispatch('setAuthUser');
             });

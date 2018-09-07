@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Proxy\TokenProxy;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 
 class LoginController extends ApiController
 {
@@ -51,6 +52,9 @@ class LoginController extends ApiController
         $email = $request->email;
         $password = $request->password;
         $data = $this->proxy->login($email, $password);
+        // 把刷新token 设置到cookie中
+        // todo Cookie::queue();
+
         return $this->response('login ok', $data);
     }
 }
