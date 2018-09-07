@@ -2,6 +2,10 @@ import store from "../index"
 import refreshToken from './refreshToken'
 export default {
     tokenKey: 'jwt_token',
+    /**
+     * 缓存access_token和refresh_token
+     * @param data
+     */
     setAllToken(data)
     {
         this.setToken(data['access_token'], data['expires_in'])
