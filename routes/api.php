@@ -24,4 +24,10 @@ Route::post('/register', 'RegisterController@register');
 // 用户登录
 Route::post('/login', 'LoginController@login');
 
+// 需要登陆才能访问的url
+ROute::middleware(['auth:api'])->group(function () {
+    // 退出登陆
+    Route::get('/logout', 'LoginController@logout');
+
+});;
 

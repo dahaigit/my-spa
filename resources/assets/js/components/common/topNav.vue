@@ -25,7 +25,7 @@
                     <router-link class="nav-link navbar-dark" to="/profile">个人中心</router-link>
                 </li>
                 <li class="nav-item" v-if="user.authenticated">
-                    <a class="nav-link navbar-dark" href="#">退出</a>
+                    <a class="nav-link navbar-dark" @click="logout()" href="#">退出</a>
                 </li>
             </ul>
         </div>
@@ -40,6 +40,14 @@
                 user: state => state.auth
             })
 
+        },
+        methods:{
+            logout(){
+                this.$store.dispatch('logoutRequest').then(response => {
+                    this.$router.push('home')
+                })
+                return
+            }
         }
     }
 </script>

@@ -14,6 +14,7 @@
 </template>
 
 <script>
+    import API from '../../api'
     export default {
         data(){
             return {
@@ -22,7 +23,7 @@
         },
         mounted() {
             let that = this
-            this.$http.get('api/posts/' + this.$route.params.id).then(function(response) {
+            axios.get(API.posts_info + this.$route.params.id).then(function(response) {
                 that.post = response.data.meta
             })
         }

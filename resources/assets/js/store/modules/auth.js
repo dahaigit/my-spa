@@ -11,6 +11,11 @@ export default {
             state.authenticated = true
             state.username = payload.user.username
             state.email = payload.user.email
+        },
+        [types.UNSET_AUTH_USER](state){
+            state.authenticated = false
+            state.username = null
+            state.email = null
         }
     },
     actions:{
@@ -21,6 +26,9 @@ export default {
                     user: response.data
                 })
             })
+        },
+        unsetAuthUser({commit,dispatch}){
+            commit({type: types.UNSET_AUTH_USER})
         }
     }
 }

@@ -52,7 +52,7 @@ const router =  new VueRouter({
 
 // 判断用户是否登陆
 router.beforeEach((to,from,next)=>{
-    let isLogin = Store.state.auth.authenticated || jwt.getToken();
+    let isLogin = jwt.getToken();
     if (to.meta.requiresAuth) {
         if (!isLogin) {
             return next('login')

@@ -8,6 +8,12 @@ export default {
                 jwt.setToken(response.data.meta.access_token)
                 dispatch('setAuthUser')
             });
+        },
+        logoutRequest({dispatch},formData){
+            return axios.get(API.logout).then(response => {
+                jwt.removeToken()
+                dispatch('unsetAuthUser')
+            })
         }
     }
 }

@@ -43,7 +43,7 @@ class LoginController extends ApiController
     }
 
     /**
-     * user login
+     * 用户登陆
      * @author luwei
      * @date ${YEAR}-${MONTH}-${DAY} ${TIME}
      */
@@ -52,9 +52,18 @@ class LoginController extends ApiController
         $email = $request->email;
         $password = $request->password;
         $data = $this->proxy->login($email, $password);
-        // 把刷新token 设置到cookie中
-        // todo Cookie::queue();
 
         return $this->response('login ok', $data);
+    }
+
+    /**
+     * 用户退出
+     * @author luwei
+     * @date ${YEAR}-${MONTH}-${DAY} ${TIME}
+     */
+    public function logout()
+    {
+        $this->proxy->logout();
+        return $this->response('退出成功！');
     }
 }
