@@ -11,7 +11,7 @@ window.Vue = require('vue');
 
 import VueRouter from 'vue-router'
 import router from './router'
-import http from './util/http'
+import './util/http'
 import App from './components/App'
 import './util/validate'
 import Vuex from 'vuex'
@@ -20,7 +20,6 @@ import store from './store'
 Vue.use(Vuex)
 Vue.use(VueRouter)
 
-Vue.prototype.$http = http
 Vue.component('app', App)
 
 const app = new Vue({

@@ -1,15 +1,20 @@
 import axios from 'axios'
 import jwt from '../storage/jwt'
 
-let http = axios.create({
+axios.install = (Vue) => {
+    Vue.prototype.$axios = axios
+}
+
+axios.defaults.headers.common = {
     basePath: 'http://spa.com',
     timeout: 30000,
     // 表示服务器响应的数据类型，可以是 'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'
     responseType: 'json', // 默认的
-})
+}
+
 
 // 添加请求拦截器
-http.interceptors.request.use(function (config) {
+axios.interceptors.request.use(function (config) {
     // 发送请求以前带着token
     config.headers['Authorization'] = jwt.getToken() ? 'Bearer ' + jwt.getToken() : '';
     return config;
@@ -19,7 +24,7 @@ http.interceptors.request.use(function (config) {
 });
 
 // 添加响应拦截器
-http.interceptors.response.use(function (response) {
+axios.interceptors.response.use(function (response) {
     // 对响应数据做点什么
     return response;
 }, function (error) {
@@ -27,4 +32,4 @@ http.interceptors.response.use(function (response) {
     return Promise.reject(error);
 });
 
-export default http
+export default axios

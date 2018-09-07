@@ -81,7 +81,7 @@
                             password : this.password,
                         }
                         let that = this
-                        this.$http.post('/api/register', formData).then(function(response){
+                        this.$axios.post('/api/register', formData).then(function(response){
                             that.$router.push({name:"registerConfirm"})
                         });
                         return;

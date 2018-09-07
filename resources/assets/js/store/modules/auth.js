@@ -1,5 +1,4 @@
 import * as types from '../mutation-type'
-import http from '../../util/http'
 export default {
     state: {
         authenticated: false,
@@ -15,7 +14,7 @@ export default {
     },
     actions:{
         setAuthUser({commit,dispatch}){
-            http.get('/api/user').then(response =>{
+            axios.get('/api/user').then(response =>{
                 commit({
                     type: types.SET_AUTH_USER,
                     user: response.data
