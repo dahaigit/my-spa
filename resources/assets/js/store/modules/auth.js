@@ -1,4 +1,5 @@
 import * as types from '../mutation-type'
+import API from '../../api'
 export default {
     state: {
         authenticated: false,
@@ -14,7 +15,7 @@ export default {
     },
     actions:{
         setAuthUser({commit,dispatch}){
-            axios.get('/api/user').then(response =>{
+            axios.get(API.user_info).then(response =>{
                 commit({
                     type: types.SET_AUTH_USER,
                     user: response.data

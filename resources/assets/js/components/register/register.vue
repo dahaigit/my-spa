@@ -63,6 +63,7 @@
     </div>
 </template>
 <script>
+    import API from '../../api'
     export default {
         data(){
             return {
@@ -81,7 +82,7 @@
                             password : this.password,
                         }
                         let that = this
-                        this.$axios.post('/api/register', formData).then(function(response){
+                        this.$axios.post(API.register, formData).then(function(response){
                             that.$router.push({name:"registerConfirm"})
                         });
                         return;
