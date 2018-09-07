@@ -5,6 +5,10 @@ axios.install = (Vue) => {
     Vue.prototype.$axios = axios
 }
 
+/**
+ * 设置请求公共头信息配置
+ * @type {{basePath: string, timeout: number, responseType: string}}
+ */
 axios.defaults.headers.common = {
     basePath: 'http://spa.com',
     timeout: 30000,

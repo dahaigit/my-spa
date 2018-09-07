@@ -1581,10 +1581,15 @@ var index_esm = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/**
+ * 所有请求统一管理
+ * @type {{login: string, user_info: string, register: string}}
+ */
+
 var API = {
-    login: 'api/login', // 用户登陆
-    user_info: 'api/user', // 用户详情
-    register: 'api/register' // 用户注册
+  login: 'api/login', // 用户登陆
+  user_info: 'api/user', // 用户详情
+  register: 'api/register' // 用户注册
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (API);
@@ -50948,6 +50953,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 var routes = [{
     path: '/',
+    name: 'home',
     component: __webpack_require__(49),
     meta: {}
 }, {
@@ -50987,12 +50993,17 @@ var router = new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({
 
 // 判断用户是否登陆
 router.beforeEach(function (to, from, next) {
+    var isLogin = __WEBPACK_IMPORTED_MODULE_1__store__["a" /* default */].state.auth.authenticated || __WEBPACK_IMPORTED_MODULE_2__util_storage_jwt__["a" /* default */].getToken();
     if (to.meta.requiresAuth) {
-        if (!__WEBPACK_IMPORTED_MODULE_1__store__["a" /* default */].state.auth.authenticated && !__WEBPACK_IMPORTED_MODULE_2__util_storage_jwt__["a" /* default */].getToken()) {
-            next('login');
+        if (!isLogin) {
+            return next('login');
+        }
+    } else {
+        if (to.name == 'login' && isLogin) {
+            return next('home');
         }
     }
-    next();
+    return next();
 });
 
 /* harmony default export */ __webpack_exports__["a"] = (router);
@@ -52365,6 +52376,10 @@ __WEBPACK_IMPORTED_MODULE_0_axios___default.a.install = function (Vue) {
     Vue.prototype.$axios = __WEBPACK_IMPORTED_MODULE_0_axios___default.a;
 };
 
+/**
+ * 设置请求公共头信息配置
+ * @type {{basePath: string, timeout: number, responseType: string}}
+ */
 __WEBPACK_IMPORTED_MODULE_0_axios___default.a.defaults.headers.common = {
     basePath: 'http://spa.com',
     timeout: 30000,

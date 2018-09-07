@@ -5,6 +5,7 @@ import jwt from '../util/storage/jwt'
 let routes = [
     {
         path: '/',
+        name: 'home',
         component: require('../components/pages/Home'),
         meta:{}
     },
@@ -51,12 +52,17 @@ const router =  new VueRouter({
 
 // 判断用户是否登陆
 router.beforeEach((to,from,next)=>{
-    if (to.meta.requiresAuth){
-        if (!Store.state.auth.authenticated && !jwt.getToken()) {
-            next('login')
+    let isLogin = Store.state.auth.authenticated || jwt.getToken();
+    if (to.meta.requiresAuth) {
+        if (!isLogin) {
+            return next('login')
+        }
+    } else {
+        if (to.name == 'login' && isLogin) {
+            return next('home')
         }
     }
-    next()
+    return next()
 })
 
 export default router
