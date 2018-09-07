@@ -61,9 +61,8 @@ class TokenProxy
             $response = $this->http->post(url('oauth/token'), [
                 'form_params' => $params
             ]);
-            // 把刷新token 设置到cookie中 期限为10天 setcookie(name,value,expire,path,domain,secure)
             $result = json_decode((string)$response->getBody(), true);
-            \Cookie::queue('refresh_token', $result['refresh_token'], 14400, null, null, true);
+
             return $result;
         } catch (\Exception $exception) {
             throw $exception;
@@ -78,16 +77,16 @@ class TokenProxy
     public function logout()
     {
         $user = auth()->guard('api')->user();
+        if (!$user) {
+            return;
+        }
         $accessToken = $user->token();
-
         // 更改刷新token
         app('db')->table('oauth_refresh_tokens')
             ->where('access_token_id', $accessToken->id)
             ->update([
                 'revoked' => true
             ]);
-        // 删除cookie
-        app('cookie')->forget('refresh_token');
         // 删除accessToken
         $accessToken->revoke();
         return ;

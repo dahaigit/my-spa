@@ -1,12 +1,20 @@
+import store from "../index"
+import refreshToken from './refreshToken'
 export default {
     tokenKey: 'jwt_token',
-    setToken(token){
-        window.localStorage.setItem(this.tokenKey, token)
+    setAllToken(data)
+    {
+        this.setToken(data['access_token'], data['expires_in'])
+        refreshToken.setToken(data['refresh_token'])
+    },
+    setToken(token, duration){
+        return store.set(this.tokenKey, token, duration)
     },
     getToken(){
-        return window.localStorage.getItem(this.tokenKey)
+        return store.get(this.tokenKey)
     },
     removeToken(){
-        window.localStorage.removeItem(this.tokenKey)
+        refreshToken.removeToken()
+        return store.remove(this.tokenKey)
     }
 }

@@ -46,7 +46,6 @@
                 this.$store.dispatch('logoutRequest').then(response => {
                     this.$router.push('home')
                 })
-                return
             }
         }
     }

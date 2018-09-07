@@ -52,7 +52,6 @@ class LoginController extends ApiController
         $email = $request->email;
         $password = $request->password;
         $data = $this->proxy->login($email, $password);
-
         return $this->response('login ok', $data);
     }
 
@@ -64,6 +63,6 @@ class LoginController extends ApiController
     public function logout()
     {
         $this->proxy->logout();
-        return $this->response('退出成功！');
+        return $this->response('tui');
     }
 }

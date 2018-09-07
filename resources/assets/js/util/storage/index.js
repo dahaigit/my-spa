@@ -1,32 +1,41 @@
-var engine = require('store/src/store-engine')
-var localStorage = require('store/storages/localStorage')
-var cookieStorage = require('store/storages/cookieStorage')
-var sessionStorage = require('store/storages/sessionStorage')
+import engine from 'store/src/store-engine'
+import localStorage from 'store/storages/localStorage'
+import cookieStorage from 'store/storages/cookieStorage'
+import sessionStorage from 'store/storages/sessionStorage'
+import defaultPlugin from 'store/plugins/defaults'
+import expirePlugin from 'store/plugins/expire'
 
-/**
- * 默认选择的存储引擎
- * @type {[null,null,null]}
- */
-var storages = [
-    localStorage,
-    cookieStorage,
-    sessionStorage
-]
-/**
- * 使用的js插件
- * @type {[null,null]}
- */
-var plugins = [
-    require('store/plugins/defaults'),
-    require('store/plugins/expire')
-]
-var store = engine.createStore(storages, plugins)
+let storages = [sessionStorage, localStorage, cookieStorage]
+let plugins = [defaultPlugin, expirePlugin]
+let Store = engine.createStore(storages, plugins)
+
+
 
 export default {
     /**
      * 缓存engine对象
      */
-    store: store,
+    store: Store,
+    /**
+     * 切换存储引擎
+     *
+     * @param {string} [type='cookie|local|session']
+     * @returns
+     */
+    switch (type = 'cookie') {
+        let storage = cookieStorage
+        switch (type) {
+            case 'local':
+                storage = localStorage
+                break
+            case 'session':
+                storage = sessionStorage
+                break
+        }
+        this.store = engine.createStore([storage], plugins)
+
+        return this
+    },
     /**
      * 获取缓存中的数据
      * @param key
@@ -43,7 +52,8 @@ export default {
     set(key, data, duration = 100){
         duration = (duration === parseInt(duration, 10)) ? parseInt(duration, 10) : 10
         let expiredTime = new Date().getTime() + (1000 * duration)
-        return this.store.set(key, data, duration)
+        this.store.set(key, data, expiredTime)
+        return
     },
     /**
      * 删除缓存中的数据
@@ -51,7 +61,7 @@ export default {
      */
     remove(key){
         return this.store.remove(key)
-    },
+    }
 }
 
 
