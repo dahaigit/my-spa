@@ -15,11 +15,19 @@ export default {
                 dispatch('unsetAuthUser')
             })
         },
-        refreshRequest({dispatch},formData){
-            return axios.post(API.refresh,formData).then(response => {
-                jwt.setAllToken(response.data.meta)
-                dispatch('setAuthUser')
-            })
+        refreshRequest({dispatch}){
+            if (jwt.getRefreshToken()) {
+                let formData = {
+                    refresh_token : jwt.getRefreshToken()
+                }
+                jwt.removeAllToken()
+                return axios.post(API.refresh,formData).then(response => {
+                    jwt.setAllToken(response.data.meta)
+                    dispatch('setAuthUser')
+                }).catch(error => {
+                    //dispatch('logoutRequest')
+                })
+            }
         }
     }
 }

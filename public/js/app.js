@@ -51136,19 +51136,16 @@ var routes = [{
 var router = new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({
     routes: routes
 });
-var that = this;
+
 // 判断用户是否登陆
 router.beforeEach(function (to, from, next) {
     var isLogin = __WEBPACK_IMPORTED_MODULE_2__util_storage_jwt__["a" /* default */].getToken();
     if (!isLogin && __WEBPACK_IMPORTED_MODULE_2__util_storage_jwt__["a" /* default */].getRefreshToken()) {
         // 换取新token
-        var formData = {
-            refresh_token: __WEBPACK_IMPORTED_MODULE_2__util_storage_jwt__["a" /* default */].getRefreshToken()
-        };
-        __WEBPACK_IMPORTED_MODULE_2__util_storage_jwt__["a" /* default */].removeAllToken();
-        __WEBPACK_IMPORTED_MODULE_1__store__["a" /* default */].dispatch('refreshRequest', formData).then(function (response) {
-            next();
+        __WEBPACK_IMPORTED_MODULE_1__store__["a" /* default */].dispatch('refreshRequest').then(function (response) {
+            return next();
         });
+        return;
     }
     if (to.meta.requiresAuth) {
         if (!isLogin) {
@@ -51251,13 +51248,21 @@ var UNSET_AUTH_USER = 'UNSET_AUTH_USER'; // 清除store中用户登陆状态和�
                 dispatch('unsetAuthUser');
             });
         },
-        refreshRequest: function refreshRequest(_ref3, formData) {
+        refreshRequest: function refreshRequest(_ref3) {
             var dispatch = _ref3.dispatch;
 
-            return axios.post(__WEBPACK_IMPORTED_MODULE_1__api__["a" /* default */].refresh, formData).then(function (response) {
-                __WEBPACK_IMPORTED_MODULE_0__util_storage_jwt__["a" /* default */].setAllToken(response.data.meta);
-                dispatch('setAuthUser');
-            });
+            if (__WEBPACK_IMPORTED_MODULE_0__util_storage_jwt__["a" /* default */].getRefreshToken()) {
+                var formData = {
+                    refresh_token: __WEBPACK_IMPORTED_MODULE_0__util_storage_jwt__["a" /* default */].getRefreshToken()
+                };
+                __WEBPACK_IMPORTED_MODULE_0__util_storage_jwt__["a" /* default */].removeAllToken();
+                return axios.post(__WEBPACK_IMPORTED_MODULE_1__api__["a" /* default */].refresh, formData).then(function (response) {
+                    __WEBPACK_IMPORTED_MODULE_0__util_storage_jwt__["a" /* default */].setAllToken(response.data.meta);
+                    dispatch('setAuthUser');
+                }).catch(function (error) {
+                    //dispatch('logoutRequest')
+                });
+            }
         }
     }
 });

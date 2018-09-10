@@ -49,19 +49,16 @@ let routes = [
 const router =  new VueRouter({
     routes
 })
-let that = this
+
 // 判断用户是否登陆
 router.beforeEach((to,from,next)=>{
     let isLogin = jwt.getToken();
     if (!isLogin && jwt.getRefreshToken()){
         // 换取新token
-        let formData = {
-            refresh_token : jwt.getRefreshToken()
-        }
-        jwt.removeAllToken()
-        Store.dispatch('refreshRequest', formData).then(response=>{
-            next()
+        Store.dispatch('refreshRequest').then(response=>{
+            return next()
         })
+        return
     }
     if (to.meta.requiresAuth) {
         if (!isLogin) {
