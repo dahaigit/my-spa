@@ -40,9 +40,21 @@ let routes = [
     },
     {
         path: '/profile',
-        name: 'profile',
-        component: require('../components/user/profile'),
-        meta:{requiresAuth: true}
+        component: require('../components/user/profileWrapper.vue'),
+        children:[
+            {
+                path: '',
+                name: 'profile',
+                component: require('../components/user/profile'),
+                meta:{requiresAuth: true},
+            },
+            {
+                path: '/edit-profile',
+                name: 'edit.profile',
+                component: require('../components/user/editProfile'),
+                meta:{requiresAuth: true},
+            }
+        ]
     },
 ]
 
