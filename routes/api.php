@@ -17,12 +17,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
 Route::resource('posts', 'PostController');
 // 用户注册
 Route::post('/register', 'RegisterController@register');
 
 // 用户登录
 Route::post('/login', 'LoginController@login');
+Route::post('/refresh', 'LoginController@refresh');
 
 // 需要登陆才能访问的url
 ROute::middleware(['auth:api'])->group(function () {

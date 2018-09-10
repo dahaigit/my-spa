@@ -91,4 +91,19 @@ class TokenProxy
         $accessToken->revoke();
         return ;
     }
+
+    /**
+     * 刷新token换取token
+     * @param $refreshToken
+     * @return mixed
+     * @author luwei
+     * @date ${YEAR}-${MONTH}-${DAY} ${TIME}
+     */
+    public function refresh($refreshToken)
+    {
+        $params = [
+            'refresh_token' => $refreshToken,
+        ];
+        return $this->proxy('refresh_token', $params);
+    }
 }

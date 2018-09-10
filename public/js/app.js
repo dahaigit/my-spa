@@ -516,7 +516,7 @@ module.exports = g;
 "use strict";
 /**
  * 所有请求统一管理
- * @type {{login: string, user_info: string, register: string}}
+ * @type
  */
 
 var API = {
@@ -524,6 +524,7 @@ var API = {
     user_info: 'api/user', // 用户详情
     register: 'api/register', // 用户注册
     logout: 'api/logout', // 退出登陆
+    refresh: 'api/refresh', // 刷新token换取token
     posts_list: 'api/posts', // 文章列表
     posts_info: 'api/posts/' // 文章列表
 
@@ -556,7 +557,10 @@ var API = {
     getToken: function getToken() {
         return __WEBPACK_IMPORTED_MODULE_0__index__["a" /* default */].get(this.tokenKey);
     },
-    removeToken: function removeToken() {
+    getRefreshToken: function getRefreshToken() {
+        return __WEBPACK_IMPORTED_MODULE_0__index__["a" /* default */].get(this.refreshTokenKey);
+    },
+    removeAllToken: function removeAllToken() {
         __WEBPACK_IMPORTED_MODULE_0__index__["a" /* default */].remove(this.refreshTokenKey);
         __WEBPACK_IMPORTED_MODULE_0__index__["a" /* default */].remove(this.tokenKey);
     }
@@ -51132,10 +51136,20 @@ var routes = [{
 var router = new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({
     routes: routes
 });
-
+var that = this;
 // 判断用户是否登陆
 router.beforeEach(function (to, from, next) {
     var isLogin = __WEBPACK_IMPORTED_MODULE_2__util_storage_jwt__["a" /* default */].getToken();
+    if (!isLogin && __WEBPACK_IMPORTED_MODULE_2__util_storage_jwt__["a" /* default */].getRefreshToken()) {
+        // 换取新token
+        var formData = {
+            refresh_token: __WEBPACK_IMPORTED_MODULE_2__util_storage_jwt__["a" /* default */].getRefreshToken()
+        };
+        __WEBPACK_IMPORTED_MODULE_2__util_storage_jwt__["a" /* default */].removeAllToken();
+        __WEBPACK_IMPORTED_MODULE_1__store__["a" /* default */].dispatch('refreshRequest', formData).then(function (response) {
+            next();
+        });
+    }
     if (to.meta.requiresAuth) {
         if (!isLogin) {
             return next('login');
@@ -51233,8 +51247,16 @@ var UNSET_AUTH_USER = 'UNSET_AUTH_USER'; // 清除store中用户登陆状态和�
             var dispatch = _ref2.dispatch;
 
             return axios.get(__WEBPACK_IMPORTED_MODULE_1__api__["a" /* default */].logout).then(function (response) {
-                __WEBPACK_IMPORTED_MODULE_0__util_storage_jwt__["a" /* default */].removeToken();
+                __WEBPACK_IMPORTED_MODULE_0__util_storage_jwt__["a" /* default */].removeAllToken();
                 dispatch('unsetAuthUser');
+            });
+        },
+        refreshRequest: function refreshRequest(_ref3, formData) {
+            var dispatch = _ref3.dispatch;
+
+            return axios.post(__WEBPACK_IMPORTED_MODULE_1__api__["a" /* default */].refresh, formData).then(function (response) {
+                __WEBPACK_IMPORTED_MODULE_0__util_storage_jwt__["a" /* default */].setAllToken(response.data.meta);
+                dispatch('setAuthUser');
             });
         }
     }
@@ -52845,7 +52867,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     });
                     return;
                 }
-                console.log(result);
             });
         }
     }

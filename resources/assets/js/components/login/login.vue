@@ -62,7 +62,6 @@
                         })
                         return;
                     }
-                    console.log(result)
                 });
             }
         }

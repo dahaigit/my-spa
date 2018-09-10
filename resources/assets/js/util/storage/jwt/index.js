@@ -17,7 +17,10 @@ export default {
     getToken(){
         return store.get(this.tokenKey)
     },
-    removeToken(){
+    getRefreshToken(){
+        return store.get(this.refreshTokenKey)
+    },
+    removeAllToken(){
         store.remove(this.refreshTokenKey)
         store.remove(this.tokenKey)
     }

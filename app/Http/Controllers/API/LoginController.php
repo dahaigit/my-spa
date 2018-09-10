@@ -52,7 +52,7 @@ class LoginController extends ApiController
         $email = $request->email;
         $password = $request->password;
         $data = $this->proxy->login($email, $password);
-        return $this->response('login ok', $data);
+        return $this->response('登陆成功', $data);
     }
 
     /**
@@ -64,5 +64,17 @@ class LoginController extends ApiController
     {
         $this->proxy->logout();
         return $this->response('tui');
+    }
+
+    /**
+     * 使用刷新token换取accessToken
+     * @author luwei
+     * @date ${YEAR}-${MONTH}-${DAY} ${TIME}
+     */
+    public function refresh(Request $request)
+    {
+        //refresh_token
+        $data = $this->proxy->refresh($request->refresh_token);
+        return $this->response('刷新登陆成功', $data);
     }
 }
