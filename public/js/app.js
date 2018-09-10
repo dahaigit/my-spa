@@ -51238,6 +51238,8 @@ var UNSET_AUTH_USER = 'UNSET_AUTH_USER'; // 清除store中用户登陆状态和�
             return axios.post(__WEBPACK_IMPORTED_MODULE_1__api__["a" /* default */].login, formData).then(function (response) {
                 __WEBPACK_IMPORTED_MODULE_0__util_storage_jwt__["a" /* default */].setAllToken(response.data.meta);
                 dispatch('setAuthUser');
+            }).catch(function (error) {
+                dispatch('logoutRequest');
             });
         },
         logoutRequest: function logoutRequest(_ref2, formData) {
@@ -51260,7 +51262,7 @@ var UNSET_AUTH_USER = 'UNSET_AUTH_USER'; // 清除store中用户登陆状态和�
                     __WEBPACK_IMPORTED_MODULE_0__util_storage_jwt__["a" /* default */].setAllToken(response.data.meta);
                     dispatch('setAuthUser');
                 }).catch(function (error) {
-                    //dispatch('logoutRequest')
+                    dispatch('logoutRequest');
                 });
             }
         }

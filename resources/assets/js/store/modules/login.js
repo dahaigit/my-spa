@@ -7,6 +7,8 @@ export default {
             return axios.post(API.login, formData).then(response => {
                 jwt.setAllToken(response.data.meta)
                 dispatch('setAuthUser')
+            }).catch(error => {
+                dispatch('logoutRequest')
             });
         },
         logoutRequest({dispatch},formData){
@@ -25,7 +27,7 @@ export default {
                     jwt.setAllToken(response.data.meta)
                     dispatch('setAuthUser')
                 }).catch(error => {
-                    //dispatch('logoutRequest')
+                    dispatch('logoutRequest')
                 })
             }
         }
