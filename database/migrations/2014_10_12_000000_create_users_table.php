@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('username');
             $table->string('password');
             $table->string('email');
-            $table->timestamp('active_at')->nullable()->comment('激活时间');
+            $table->tinyInteger('is_active')->default(0)->comment('是否激活0未激活，1已激活');
             $table->rememberToken();
             $table->timestamps();
         });
