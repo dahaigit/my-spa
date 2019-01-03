@@ -52858,6 +52858,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -53037,6 +53038,10 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-group row mb-0" }, [
       _c("div", { staticClass: "col-md-6 offset-md-4" }, [
+        _c("img", {
+          attrs: { src: "http://mauto.com/img/baidu_jgylogo3.gif", alt: "" }
+        }),
+        _vm._v(" "),
         _c(
           "button",
           { staticClass: "btn btn-primary", attrs: { type: "submit" } },

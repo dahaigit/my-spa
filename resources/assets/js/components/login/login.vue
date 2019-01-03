@@ -28,6 +28,7 @@
 
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
+                                    <img src="http://mauto.com/img/baidu_jgylogo3.gif" alt="">
                                     <button type="submit" class="btn btn-primary">
                                         登陆
                                     </button>
